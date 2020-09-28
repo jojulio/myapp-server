@@ -25,7 +25,7 @@ class UserController {
    * @param {Response} ctx.response
    */
   	async store( { request } ) {
-		const data = request.only(['username', 'email', 'password']);
+		const data = request.only(['username', 'email', 'password', 'permission']);
 		const user = await User.create(data);
 
 		return user;
@@ -61,7 +61,7 @@ class UserController {
    async update ({ params, request, response }) {
       try {
 			const user = await User.findOrFail(params.id);
-         const data = request.only(['username', 'email', 'password']);
+         const data = request.only(['username', 'email', 'password', 'permission']);
          
          user.merge(data);
          await user.save();
