@@ -5,7 +5,7 @@ class SessionController {
     try {
       const { email, password } = request.all();
 
-      const token = await auth.attempt(email, password);
+      const token = await auth.withRefreshToken().attempt(email, password);
       
       return token;
     } catch(error) {
@@ -21,6 +21,16 @@ class SessionController {
     } catch (error) {
       console.log(error)
       response.status(401).send('You are not logged in')
+    }
+  }
+
+  async refreshToken({ request, response, auth }) {
+    try {
+      const { refreshToken } = request.all();
+      return await auth.newRefreshToken().generateForRefreshToken(refreshToken);
+    } catch (error) {
+      console.log(error)
+      response.status(401).send('Error to refresh token');
     }
   }
 }

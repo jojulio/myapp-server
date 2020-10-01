@@ -24,6 +24,7 @@ Route.get('/', () => {
 
 Route.post('/sessions', 'SessionController.create');
 Route.get('/sessions/user', 'SessionController.user');
+Route.post('/sessions/refreshToken', 'SessionController.refreshToken');
 
 Route.resource('/properties', 'PropertyController').apiOnly().middleware('auth');
 Route.post('properties/:id/images', 'ImageController.store').middleware('auth');
